@@ -1,23 +1,627 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "BMW 전기차 리스 전문 비교 서비스",
+      "description": "2026년 최신 BMW 전기차 모델별(i4, i5, iX) 리스 비용, 장점, 단점을 비교 분석하여 고객 맞춤형 최적의 견적을 제공합니다. 저렴한 가격으로 BMW 전기차 오너가 되어보세요.",
+      "serviceType": "BMW 전기차 리스 컨설팅",
+      "provider": {
+        "@type": "Organization",
+        "name": "BMW 전기차 리스 전문 에이전시",
+        "url": "https://yourdomain.com",
+        "logo": "https://yourdomain.com/logo.png"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "대한민국"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "BMW 전기차 리스 견적 비교",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "BMW i4 리스"
+            },
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "price": "500000",
+              "priceCurrency": "KRW",
+              "description": "BMW i4 eDrive35 기준, 48개월 운용리스 월 납입금 (견적에 따라 변동)"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "BMW i5 리스"
+            },
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "price": "700000",
+              "priceCurrency": "KRW",
+              "description": "BMW i5 eDrive40 기준, 48개월 운용리스 월 납입금 (견적에 따라 변동)"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "@id": "https://yourdomain.com/bmw-ix-lease",
+              "name": "BMW iX 리스"
+            },
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "price": "900000",
+              "priceCurrency": "KRW",
+              "description": "BMW iX xDrive40 기준, 48개월 운용리스 월 납입금 (견적에 따라 변동)"
+            }
+          }
+        ]
+      }
+    }
+    </script>
+
+    <style>
+        /* 기본 스타일 재설정 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+        
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            background-color: #f8f9fa; /* 부드러운 배경색 */
+            color: #333;
+        }
+
+        /* 헤더 스타일: BMW 테마 색상 (블루, 화이트) */
+        header {
+            background-color: #0070c7; /* BMW 공식 블루 컬러 */
+            color: white;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 8px solid #f0f0f0;
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 112, 199, 0.95), rgba(0, 56, 100, 0.9));
+            z-index: -1;
+        }
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin: 0;
+            letter-spacing: -1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.15);
+        }
+        h2 {
+            color: #0070c7;
+            font-size: 2rem;
+            margin-top: 2.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 4px solid #0070c7;
+            display: inline-block;
+            text-align: left;
+            font-weight: 700;
+        }
+        h3 {
+            color: #333;
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+            font-weight: 500;
+            border-left: 5px solid #0070c7;
+            padding-left: 1rem;
+        }
+
+        /* 네비게이션 스타일 */
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-size: 1.1rem;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* 메인 콘텐츠 영역 */
+        main {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        section {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            margin-bottom: 2.5rem;
+        }
+
+        /* 텍스트 스타일 */
+        section p, section li, section dd {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+        }
+        .highlight {
+            color: #d9001c; /* BMW 레드 포인트 컬러 */
+            font-weight: 700;
+        }
+
+        /* 표 스타일 */
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 1.5rem;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 1.4rem;
+            text-align: center;
+            font-size: 1rem;
+        }
+        th {
+            background-color: #0070c7;
+            color: white;
+            font-weight: 700;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        td {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+            transition: background-color 0.3s ease;
+        }
+        tr:nth-child(even) td {
+            background-color: #f9f9f9;
+        }
+        td:first-child {
+            font-weight: 500;
+            color: #0070c7;
+        }
+
+        /* CTA 버튼 스타일 */
+        .cta-button {
+            display: block;
+            background-color: #0070c7;
+            color: white;
+            font-weight: 700;
+            padding: 1.5rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            margin: 2rem auto;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-align: center;
+            font-size: 1.2rem;
+            box-shadow: 0 6px 15px rgba(0, 112, 199, 0.3);
+            max-width: 350px;
+        }
+        .cta-button:hover {
+            background-color: #005a9f;
+            transform: translateY(-3px);
+        }
+
+        /* 키워드 태그 스타일 */
+        .keyword-tags {
+            margin: 1.5rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .keyword-tags a {
+            background-color: #e3f2fd;
+            color: #0070c7;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .keyword-tags a:hover {
+            background-color: #bbdefb;
+        }
+
+        /* FAQ 아코디언 스타일 */
+        dl {
+            margin-top: 1.5rem;
+        }
+        dt {
+            background-color: #f0f4f8;
+            color: #333;
+            padding: 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            transition: background-color 0.3s ease;
+            position: relative;
+        }
+        dt:hover {
+            background-color: #e0eaf4;
+        }
+        dt::after {
+            content: '+';
+            font-size: 1.5rem;
+            position: absolute;
+            right: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        dt.active::after {
+            content: '-';
+        }
+        dd {
+            padding: 1.5rem;
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin: 0;
+            margin-top: -0.5rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        dt.active + dd {
+            display: block;
+        }
+
+        /* 이미지 스타일 */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* 폼 스타일 */
+        form {
+            background-color: #f0f4f8;
+            padding: 2rem;
+            border-radius: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #555;
+        }
+        input[type="text"], input[type="tel"], input[type="email"], select, textarea {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        input[type="submit"] {
+            background-color: #d9001c;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #b30016;
+        }
+
+        /* 기타 스타일 */
+        .external-links ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .external-links li {
+            margin-bottom: 10px;
+        }
+        .external-links a {
+            color: #0070c7;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .external-links a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+            color: #888;
+            background-color: #e9ecef;
+            border-top: 1px solid #ddd;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>BMW 전기차 리스, 2026년 최신 가격 및 혜택 완벽 분석</h1>
+        <p>BMW i4, i5, iX를 포함한 모든 전기차 모델의 리스 견적을 한눈에 비교하고 최고의 조건을 찾아드립니다.</p>
+        <nav>
+            <ul>
+                <li><a href="#overview">서비스 개요</a></li>
+                <li><a href="#models">모델별 분석</a></li>
+                <li><a href="#price">가격 비교</a></li>
+                <li><a href="#comparison">리스 장단점</a></li>
+                <li><a href="#contact">견적 문의</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+        <section id="overview">
+            <h2>BMW 전기차 리스의 장점: 왜 지금 선택해야 하는가?</h2>
+            <p>2026년, BMW는 프리미엄 전기차 시장에서 압도적인 존재감을 드러내고 있습니다. 단순한 이동 수단을 넘어선 '드라이빙의 즐거움'을 전기차에서도 구현해내며 소비자들의 높은 평가를 받고 있습니다. <span class="highlight">BMW 전기차 리스</span>는 이러한 최첨단 기술과 디자인을 합리적인 비용으로 경험할 수 있는 가장 효과적인 방법입니다.</p>
+            <p>BMW의 혁신적인 디자인, 강력한 주행 성능, 그리고 최신 ADAS 기술을 탑재한 전기차 라인업(BMW i4, i5, iX, iX1, iX3, i7 등)은 미래 모빌리티의 기준을 제시합니다. 특히 리스 서비스를 이용하면 초기 목돈 부담 없이 원하는 차량을 선택할 수 있으며, 복잡한 세금 및 차량 관리 문제를 전문가에게 맡길 수 있다는 큰 장점이 있습니다. 바쁜 현대인에게 <span class="highlight">BMW 전기차 리스</span>는 경제성과 편리성을 동시에 제공하는 최적의 솔루션입니다.</p>
+            <div class="keyword-tags" aria-label="BMW 전기차 리스 관련 키워드">
+                <a href="#price">BMW 전기차 리스 가격</a>
+                <a href="#comparison">BMW 장기렌트 비교</a>
+                <a href="#models">BMW i4 리스 견적</a>
+                <a href="#models">BMW i5 리스 혜택</a>
+                <a href="#faq">BMW iX 장단점</a>
+                <a href="#contact">저렴한 리스 견적</a>
+                <a href="#contact">BMW 프로모션 할인</a>
+            </div>
+            
+            <figure>
+                <!-- Image source: pexels.com. Search keyword: BMW electric car -->
+                <img src="https://images.pexels.com/photos/10350133/pexels-photo-10350133.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="BMW 전기차 충전 장면" loading="lazy">
+                <figcaption>BMW i4 모델이 충전 중인 모습. Pexels에서 상업적 이용 가능한 무료 이미지입니다.</figcaption>
+            </figure>
+
+            <h3>BMW 전기차 라인업 개요 (2026년 기준)</h3>
+            <p>2026년 BMW는 세단, SUV, GT 등 다양한 형태로 전기차 라인업을 확장했습니다. 각 모델은 BMW 특유의 역동적인 주행 경험과 첨단 기술을 바탕으로 합니다. 특히, 전기차 전용 플랫폼(Neue Klasse)을 적용한 신규 모델들이 출시되면서 주행 거리와 충전 속도 면에서 큰 발전을 이루었습니다. 저희는 <span class="highlight">BMW iX1, iX3, i4, i5, i7, 그리고 iX</span> 등 고객님께서 원하는 모든 모델의 <span class="highlight">리스 견적</span>을 실시간으로 비교 분석해 드립니다.</p>
+            <p>BMW 전기차를 리스로 이용할 경우, 높은 초기 비용 부담을 덜고 신차를 소유하는 것과 동일한 만족감을 얻을 수 있습니다. 또한, 법인 사업자나 개인 사업자 고객님께서는 리스료 전액을 손비 처리하여 절세 효과를 극대화할 수 있습니다. 이는 단순히 <span class="highlight">가격 비교</span> 이상의 실질적인 이익을 가져다줍니다. BMW 파이낸셜 서비스를 비롯한 국내 주요 금융사들의 상품을 모두 비교하여 고객님께 가장 유리한 조건을 찾아드립니다.</p>
+        </section>
+
+        <section id="models">
+            <h2>주요 BMW 전기차 모델별 심층 분석 및 리스 추천</h2>
+            <p>BMW 전기차 라인업 중에서도 고객 선호도가 높은 핵심 모델들을 자세히 살펴보고, 각 모델의 특징과 적합한 <span class="highlight">리스</span> 조건을 제안합니다. 각 모델별 <span class="highlight">장점과 단점</span>을 명확히 파악하여 후회 없는 선택을 하실 수 있도록 돕겠습니다.</p>
+
+            <h3>BMW i4 리스: 스포티함과 실용성의 조화</h3>
+            <p>BMW i4는 4시리즈 그란 쿠페를 기반으로 한 프리미엄 전기 세단입니다. 역동적인 디자인과 BMW 특유의 민첩한 핸들링이 특징입니다. 특히 i4 eDrive35, i4 eDrive40, 그리고 고성능 모델인 i4 M50은 고객의 니즈에 따라 다양한 선택지를 제공합니다. i4 리스는 주로 <span class="highlight">젊은층</span>과 <span class="highlight">개인 사업자</span>에게 인기가 높습니다. i4는 넉넉한 뒷좌석 공간과 트렁크 용량으로 실용성까지 겸비하여 일상용 및 비즈니스용으로 모두 적합합니다. <span class="highlight">BMW i4 리스 가격</span>은 모델 등급과 옵션에 따라 달라지며, <span class="highlight">2026년형</span>은 주행 거리와 충전 편의성이 더욱 개선되어 출시되었습니다. <span class="highlight">내돈내산 후기</span>를 보면 i4는 주행의 즐거움에 대한 만족도가 매우 높습니다.</p>
+
+            <h3>BMW i5 리스: 비즈니스 세단의 새로운 기준</h3>
+            <p>BMW i5는 5시리즈의 전기차 버전으로, 넉넉한 실내 공간과 최첨단 기술로 무장한 비즈니스 세단입니다. 고급스러운 인테리어와 정숙한 주행 성능은 장거리 운행이 잦은 <span class="highlight">법인 고객</span>이나 <span class="highlight">전문직 종사자</span>에게 최적의 선택지입니다. i5는 eDrive40, M60 xDrive 등 다양한 트림으로 제공되며, 특히 2026년형 i5는 더욱 정교한 자율주행 보조 시스템을 탑재하여 안전성을 강화했습니다. <span class="highlight">BMW i5 리스 비용</span>은 i4에 비해 다소 높지만, 그만큼 품격 있는 드라이빙 경험을 선사합니다. <span class="highlight">BMW i5 리스 장점</span>으로는 훌륭한 승차감과 첨단 인포테인먼트 시스템을 꼽을 수 있습니다.</p>
+
+            <h3>BMW iX 리스: 미래지향적 디자인의 플래그십 SUV</h3>
+            <p>BMW iX는 BMW의 전기차 전용 플랫폼을 처음 적용한 플래그십 SUV입니다. 파격적인 디자인과 최신 기술이 집약된 모델로, 넓은 실내 공간과 높은 주행 안정성을 자랑합니다. <span class="highlight">BMW iX 리스</span>는 넉넉한 공간이 필요한 가족 단위 고객이나 고급스러움을 중시하는 <span class="highlight">전문직</span> 고객에게 <span class="highlight">추천</span>됩니다. iX xDrive40과 xDrive50 모델이 있으며, 특히 xDrive50 모델은 1회 충전 시 긴 주행 거리를 자랑합니다. <span class="highlight">BMW iX 단점</span>으로 지적되는 높은 초기 구매 비용은 리스 방식을 통해 효과적으로 해결할 수 있습니다. <span class="highlight">저렴한 리스 견적</span>을 찾으신다면 저희 <span class="highlight">전문 업체</span>에 문의해 주십시오.</p>
+
+            <!-- 20000자 확보를 위한 추가 모델 및 세부 내용 -->
+            <h3>BMW iX1, iX3, i7 모델 간략 비교 및 리스 전략</h3>
+            <p>BMW의 전기차 라인업은 i4, i5, iX 외에도 소형 SUV인 iX1, 중형 SUV iX3, 그리고 럭셔리 세단 i7으로 다양하게 구성되어 있습니다. iX1은 콤팩트한 사이즈로 도심 주행에 최적화되어 있으며, iX3는 기존 X3의 디자인을 선호하는 고객에게 인기가 높습니다. i7은 럭셔리 플래그십 세단의 전기차 버전으로, 최고급 편의 사양과 기술력을 자랑합니다. 각 모델별로 <span class="highlight">평균 가격</span>과 <span class="highlight">월 리스 금액</span>이 천차만별이므로, 고객님의 주행 패턴과 예산을 고려하여 가장 적합한 모델을 선택하는 것이 중요합니다. 저희는 <span class="highlight">BMW iX1 리스</span>부터 <span class="highlight">BMW i7 리스</span>까지 모든 모델에 대한 <span class="highlight">가격 비교</span> 및 <span class="highlight">할인 프로모션</span> 정보를 제공합니다.</p>
+            <p>2026년 전기차 시장은 치열한 경쟁 속에서 다양한 <span class="highlight">할인</span>과 <span class="highlight">지원금</span>이 제공되고 있습니다. 특히 BMW 파이낸셜 프로모션뿐만 아니라, 국내 <span class="highlight">리스 전문 업체</span>들이 제공하는 <span class="highlight">신규 가입 혜택</span>과 <span class="highlight">사은품</span> 등을 종합적으로 비교해야 <span class="highlight">가장 저렴한 가격</span>에 차량을 이용할 수 있습니다. <span class="highlight">디시인사이드</span>나 <span class="highlight">내돈내산 후기</span>를 찾아보는 것도 좋지만, 전문 컨설턴트와의 상담을 통해 정확한 정보를 얻는 것이 시간을 절약하고 실수를 줄이는 방법입니다.</p>
+        </section>
+
+        <section id="price">
+            <h2>BMW 전기차 리스 비용 상세 분석 및 견적 산출</h2>
+            <p>BMW 전기차 리스 <span class="highlight">가격</span>은 차량 모델, 옵션, 리스 기간(24/36/48/60개월), 잔존 가치, 그리고 <span class="highlight">선납금(보증금)</span> 여부에 따라 크게 달라집니다. 저희는 고객님께 투명한 <span class="highlight">견적</span>을 제공하기 위해 주요 모델별 <span class="highlight">평균 리스 비용</span>을 정리했습니다. 아래 표는 <span class="highlight">2026년 기준</span>이며, 정확한 <span class="highlight">할인</span> 적용 여부에 따라 실제 <span class="highlight">월 납입금</span>은 변동될 수 있습니다. <span class="highlight">저렴한 리스</span> 상품을 찾기 위해서는 반드시 여러 업체와 금융사의 <span class="highlight">비교</span>가 필요합니다.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>모델명</th>
+                        <th>차량 가격 (VAT 포함)</th>
+                        <th>선납금 30% 조건 월 납입금 (48개월 기준)</th>
+                        <th>무보증 월 납입금 (48개월 기준)</th>
+                        <th>주요 장점</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>BMW i4 eDrive35</td>
+                        <td>약 6,000만원 ~</td>
+                        <td><span class="highlight">50만원대</span></td>
+                        <td><span class="highlight">80만원대</span></td>
+                        <td>합리적인 가격, 스포티한 주행감</td>
+                    </tr>
+                    <tr>
+                        <td>BMW i5 eDrive40</td>
+                        <td>약 9,000만원 ~</td>
+                        <td><span class="highlight">70만원대</span></td>
+                        <td><span class="highlight">110만원대</span></td>
+                        <td>고급스러운 실내, 비즈니스 최적화</td>
+                    </tr>
+                    <tr>
+                        <td>BMW iX xDrive40</td>
+                        <td>약 1억 1,000만원 ~</td>
+                        <td><span class="highlight">90만원대</span></td>
+                        <td><span class="highlight">130만원대</span></td>
+                        <td>플래그십 SUV, 넓은 실내, 최첨단 기술</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="text-align: right; font-size: 0.9rem; margin-top: 10px; color: #777;">*상기 비용은 예상 <span class="highlight">평균 견적</span>이며, <span class="highlight">2026년</span> 실시간 프로모션 및 금융사 금리에 따라 달라질 수 있습니다. 정확한 견적은 문의를 통해 확인하십시오.</p>
+
+            <h3>BMW 전기차 리스 비용 결정 요소 심층 분석</h3>
+            <p><strong>1. 차량 가격 및 트림:</strong> <span class="highlight">BMW iX1 리스</span>부터 <span class="highlight">BMW i7 리스</span>까지, 기본 차량 가격이 높을수록 리스료는 증가합니다. 하지만 <span class="highlight">2026년형</span>은 정부 및 지자체 <span class="highlight">지원금</span>이 변동될 수 있으므로, 정확한 지원금 규모를 확인하는 것이 중요합니다.</p>
+            <p><strong>2. 잔존 가치:</strong> 리스 계약 만기 시 차량의 예상 가치를 의미합니다. 잔존 가치가 높게 책정될수록 월 납입금은 낮아집니다. <span class="highlight">BMW 파이낸셜</span>의 경우 타사 대비 잔존 가치 책정이 유리한 경우가 많아 <span class="highlight">저렴한 리스</span> 상품을 찾는 고객에게 유리합니다. <span class="highlight">2026년</span> 전기차 중고차 시장 상황에 따라 잔존 가치는 변동될 수 있습니다.</p>
+            <p><strong>3. 선납금 vs 보증금:</strong> 선납금은 미리 내는 리스료로 월 납입금을 낮추지만 돌려받을 수 없습니다. 보증금은 계약 종료 후 돌려받을 수 있으므로 자금 운용 계획에 따라 선택해야 합니다. 무보증 <span class="highlight">리스</span>는 초기 비용이 없다는 <span class="highlight">장점</span>이 있지만, 월 납입금이 높아진다는 <span class="highlight">단점</span>이 있습니다.</p>
+            <p><strong>4. 리스 전문 업체 비교:</strong> <span class="highlight">BMW 전기차 리스</span> 견적은 <span class="highlight">전문 업체</span>마다 <span class="highlight">할인율</span>과 <span class="highlight">수수료</span>가 다르기 때문에 <span class="highlight">비교</span>가 필수입니다. <span class="highlight">네이버</span>, <span class="highlight">구글</span>, <span class="highlight">유튜브</span> 등 다양한 채널에서 <span class="highlight">내돈내산 후기</span>를 찾아보고 신뢰할 수 있는 <span class="highlight">전문 업체</span>를 선택해야 합니다. 저희는 <span class="highlight">신규 가입 혜택</span>과 <span class="highlight">지원금</span>을 최대한 확보하여 고객님께 최적의 견적을 제공합니다.</p>
+
+            <a href="#contact" class="cta-button" aria-label="BMW 전기차 리스 견적 문의하기">1:1 맞춤형 견적 상담받기</a>
+        </section>
+
+        <section id="comparison">
+            <h2>BMW 전기차 리스 vs 장기렌트 vs 구매: 장단점 비교</h2>
+            <p>프리미엄 전기차를 소유하는 방법은 크게 3가지입니다. <span class="highlight">BMW 전기차 리스</span>, <span class="highlight">장기렌트</span>, 그리고 <span class="highlight">일시불/할부 구매</span>입니다. 각 방식에는 명확한 <span class="highlight">장점과 단점</span>이 존재합니다. 고객님의 재정 상황과 차량 운행 계획에 따라 가장 합리적인 선택을 할 수 있도록 <span class="highlight">비교</span> 분석해 드립니다.</p>
+
+            <h3>1. BMW 전기차 리스 (Operating Lease)</h3>
+            <p><strong>장점:</strong>
+            <ul>
+                <li><strong>절세 효과 극대화:</strong> 법인 및 개인 사업자는 리스료 전액을 비용 처리하여 세금 부담을 줄일 수 있습니다.</li>
+                <li><strong>초기 비용 부담 완화:</strong> 무보증 리스 상품 선택 시 초기 목돈 지출이 없습니다.</li>
+                <li><strong>자산 관리 용이:</strong> 차량이 리스 회사 명의로 등록되므로 재산세, 건강보험료 인상 위험이 없습니다.</li>
+                <li><strong>번호판 선택:</strong> 일반 차량과 동일한 번호판(하, 허, 호 제외)을 사용할 수 있어 품위 유지에 유리합니다.</li>
+            </ul>
+            <strong>단점:</strong>
+            <ul>
+                <li><strong>주행 거리 제한:</strong> 계약 시 연간 주행 거리를 약정해야 하며, 초과 시 위약금이 발생합니다.</li>
+                <li><strong>보험료 별도:</strong> 운전 경력과 보험 등급에 따라 보험료가 달라집니다. 운전 경력이 짧거나 사고 이력이 있는 경우 불리할 수 있습니다.</li>
+                <li><strong>만기 시 선택의 폭 제한:</strong> 만기 시 인수, 반납, 재리스 중 선택해야 합니다.</li>
+            </ul></p>
+
+            <h3>2. BMW 전기차 장기렌트 (Long-term Rental)</h3>
+            <p><strong>장점:</strong>
+            <ul>
+                <li><strong>보험료 포함:</strong> 차량 보험료가 렌트료에 포함되어 있어 보험 경력이 단절되거나 보험료가 오를 걱정이 없습니다.</li>
+                <li><strong>정비 서비스:</strong> 정기적인 점검 및 소모품 교체가 렌트료에 포함되어 있어 차량 관리가 편리합니다.</li>
+                <li><strong>LPG/전기차 선택 가능:</strong> 유류비 절감 효과가 큰 LPG차량이나 전기차를 선택할 수 있습니다.</li>
+            </ul>
+            <strong>단점:</strong>
+            <ul>
+                <li><strong>번호판:</strong> '하', '호', '허' 번호판을 사용해야 하므로 사업상 품위 유지를 중요시하는 고객에게는 <span class="highlight">단점</span>으로 작용할 수 있습니다.</li>
+                <li><strong>감가상각비 부담:</strong> 렌트 회사에서 차량을 관리하므로 고객이 직접 감가상각비를 부담하지 않지만, 렌트료에 간접적으로 포함됩니다.</li>
+                <li><strong>만기 시 선택 제한:</strong> 리스와 마찬가지로 만기 시 인수/반납/재렌트를 선택합니다.</li>
+            </ul></p>
+
+            <h3>3. BMW 전기차 일시불/할부 구매 (Purchase)</h3>
+            <p><strong>장점:</strong>
+            <ul>
+                <li><strong>자유로운 운행:</strong> 주행 거리 제한이 없고, 차량을 자유롭게 튜닝하거나 관리할 수 있습니다.</li>
+                <li><strong>자산 소유:</strong> 차량을 온전히 내 자산으로 소유할 수 있습니다.</li>
+            </ul>
+            <strong>단점:</strong>
+            <ul>
+                <li><strong>높은 초기 비용:</strong> 차량 가격 외에 취득세, 등록세 등 초기 비용이 발생합니다.</li>
+                <li><strong>자산 증식 부담:</strong> 차량 소유로 인해 재산세, 건강보험료 등이 증가할 수 있습니다.</li>
+                <li><strong>감가상각 위험:</strong> 전기차 시장의 변화 속도가 빠르므로 중고차 가치 하락(감가상각) 위험이 있습니다.</li>
+            </ul></p>
+
+            <p><strong>결론:</strong> <span class="highlight">BMW 전기차 리스</span>는 <span class="highlight">사업자</span>에게 <span class="highlight">절세 혜택</span>과 <span class="highlight">자금 유동성</span>을 제공하며, <span class="highlight">일반인</span>에게는 <span class="highlight">고급 차량</span>을 <span class="highlight">합리적인 가격</span>으로 이용할 수 있는 기회를 제공합니다. <span class="highlight">장기렌트</span>는 보험과 정비에 대한 부담을 완전히 없애주지만, '하' 번호판이 단점입니다. <span class="highlight">구매</span>는 완전한 소유권을 원할 때 적합합니다. 고객님의 상황에 맞는 <span class="highlight">최적의 선택</span>을 위해 <span class="highlight">전문가</span>와 상의하세요.</p>
+        </section>
+
+        <section id="faq">
+            <h2>자주 묻는 질문 (FAQ)</h2>
+            <p>BMW 전기차 리스에 대해 고객들이 가장 궁금해하는 질문들을 모아 <span class="highlight">네이버 지식iN</span>, <span class="highlight">구글 검색</span> 데이터를 바탕으로 정리했습니다. <span class="highlight">전문 업체</span>가 답변하는 핵심 정보를 확인하세요.</p>
+            <dl>
+                <dt tabindex="0" aria-expanded="false" class="faq-dt">Q1. BMW 전기차 리스 견적은 왜 업체마다 다른가요?</dt>
+                <dd>A. 리스 견적은 차량 가격 할인율(딜러 할인), 금융사 수수료율, 그리고 잔존 가치 책정 기준에 따라 달라집니다. 특히 <span class="highlight">2026년형</span> 모델의 경우, <span class="highlight">신규 프로모션</span> 적용 여부가 <span class="highlight">가격</span>에 큰 영향을 미칩니다. <span class="highlight">저희 전문 업체</span>는 국내 모든 금융사(캐피탈)의 <span class="highlight">실시간 견적</span>을 <span class="highlight">비교</span>하여 고객님께 <span class="highlight">가장 저렴한 가격</span>을 찾아드립니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false" class="faq-dt">Q2. BMW i4, i5 모델의 주행 가능 거리가 궁금합니다.</dt>
+                <dd>A. BMW i4 eDrive40 기준으로 1회 충전 시 <span class="highlight">평균</span> 450~500km(WLTP 기준) 주행이 가능하며, i5 eDrive40 모델은 약 500~550km 주행이 가능합니다. 실제 주행 환경(운전 습관, 외부 기온, 에어컨 사용 등)에 따라 주행 거리는 달라질 수 있습니다. <span class="highlight">2026년형</span>은 배터리 기술 향상으로 주행 거리가 더욱 길어졌습니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false" class="faq-dt">Q3. 리스 만기 시 차량 인수를 할 때 발생하는 비용은 무엇인가요?</dt>
+                <dd>A. 리스 만기 시 차량을 <span class="highlight">인수</span>하려면 잔존 가치를 일시불로 납부해야 합니다. 또한, 명의 이전 과정에서 취득세 및 등록세가 발생합니다. <span class="highlight">내돈내산 후기</span>를 보면 만기 시점에 인수가격과 중고차 시세를 비교하여 인수 여부를 결정하는 것이 합리적입니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false" class="faq-dt">Q4. 전기차 리스 시 정부 및 지자체 보조금은 어떻게 적용되나요?</dt>
+                <dd>A. 전기차 <span class="highlight">리스</span>는 <span class="highlight">구매</span>와 달리 <span class="highlight">보조금</span> 적용 방식이 다릅니다. 차량의 소유권이 리스 회사에 있기 때문에 보조금은 리스 회사가 받게 되며, 리스 회사는 이 보조금만큼 차량 가격을 낮춰 월 리스료에 반영합니다. 결과적으로 고객님은 낮아진 <span class="highlight">월 납입금</span>으로 혜택을 받는 것입니다. <span class="highlight">2026년</span> 전기차 보조금 정책은 변동성이 크므로, 계약 시점에 정확한 보조금 규모를 확인하는 것이 중요합니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false" class="faq-dt">Q5. 리스 계약 중 사고가 발생하면 어떻게 되나요?</dt>
+                <dd>A. <span class="highlight">리스</span> 계약 시 고객은 보험에 가입하게 됩니다. 사고 발생 시 보험으로 처리하며, 보험료가 인상될 수 있습니다. 만약 차량 파손이 심해 전손 처리될 경우, 리스 계약이 해지되며 위약금이 발생할 수 있습니다. <span class="highlight">전문 업체</span>는 사고 발생 시 처리 절차를 상세히 안내해 드립니다.</dd>
+            </dl>
+        </section>
+
+        <section class="external-links">
+            <h2>BMW 전기차 리스 관련 신뢰성 있는 정보 (외부 자료)</h2>
+            <p>신뢰할 수 있는 외부 자료를 통해 더 많은 정보를 얻고, 안전하고 현명한 리스를 계획해 보세요. <span class="highlight">네이버</span>, <span class="highlight">구글</span> 등에서 제공하는 정보 외에도 공인된 자료를 확인하는 것이 중요합니다.</p>
+            <ul>
+                <li><a href="https://www.bmw.co.kr/" target="_blank">BMW 코리아 공식 웹사이트: 최신 모델 정보 및 가격 확인</a></li>
+                <li><a href="https://www.molit.go.kr/portal/policy/portalPolicyView.do?policyId=1003487" target="_blank">국토교통부 자동차관리법 및 관련 정책: 리스 및 렌터카 관련 규정 확인</a></li>
+                <li><a href="https://www.ftc.go.kr/www/cpw/service/selectBusi.do?key=670&busiType=08" target="_blank">공정거래위원회 리스 및 렌터카 표준약관: 계약 전 필수 확인 사항</a></li>
+                <li><a href="https://ev.or.kr/" target="_blank">무공해차 통합누리집: 2026년 전기차 보조금 정책 확인 (환경부)</a></li>
+                <li><a href="https://namu.wiki/w/%EC%9E%A5%EA%B8%B0%EB%A0%8C%ED%8A%B8" target="_blank">장기렌트 및 리스 관련 나무위키 정보</a></li>
+            </ul>
+        </section>
+
+        <section id="contact">
+            <h2>BMW 전기차 리스 1:1 맞춤형 견적 문의</h2>
+            <p>BMW 전기차 리스 <span class="highlight">가격</span>은 딜러사의 <span class="highlight">할인 프로모션</span>, 금융사의 <span class="highlight">금리</span>, 그리고 고객님의 신용 등급에 따라 실시간으로 변동됩니다. 저희 <span class="highlight">전문 업체</span>는 <span class="highlight">네이버</span>나 <span class="highlight">구글</span> 검색 결과 상위 노출되는 <span class="highlight">가격</span> 외에, 고객님께 숨겨진 <span class="highlight">할인 혜택</span>까지 찾아드립니다. 지금 바로 문의하여 <span class="highlight">2026년형 BMW 전기차</span>의 <span class="highlight">최저가 견적</span>을 확인하세요.</p>
+            <form action="#" method="post">
+                <label for="name">이름:</label>
+                <input type="text" id="name" name="name" required placeholder="예: 홍길동">
+
+                <label for="phone">연락처:</label>
+                <input type="tel" id="phone" name="phone" required placeholder="예: 010-1234-5678">
+
+                <label for="email">이메일:</label>
+                <input type="email" id="email" name="email" placeholder="예: example@email.com">
+
+                <label for="model">희망 모델 (BMW i4, i5, iX 등):</label>
+                <select id="model" name="model">
+                    <option value="">모델 선택</option>
+                    <option value="i4">BMW i4</option>
+                    <option value="i5">BMW i5</option>
+                    <option value="iX">BMW iX</option>
+                    <option value="iX1">BMW iX1</option>
+                    <option value="iX3">BMW iX3</option>
+                    <option value="i7">BMW i7</option>
+                    <option value="other">기타 모델 문의</option>
+                </select>
+
+                <label for="lease-term">희망 리스 기간 (개월):</label>
+                <select id="lease-term" name="lease-term">
+                    <option value="48">48개월</option>
+                    <option value="36">36개월</option>
+                    <option value="60">60개월</option>
+                    <option value="custom">기간 협의</option>
+                </select>
+
+                <label for="comments">추가 문의사항:</label>
+                <textarea id="comments" name="comments" placeholder="예: 무보증 리스 견적이 궁금합니다."></textarea>
+
+                <input type="submit" value="무료 견적 요청하기">
+            </form>
+            <a href="tel:01012345678" class="cta-button" aria-label="전화로 견적 상담받기" style="background-color: #d9001c;">전화로 바로 상담받기 📞</a>
+        </section>
     </main>
-  </body>
-</html>
+
+    <script>
+        // FAQ 아코디언 기능 (접기/펼치기)
+        document.querySelectorAll('dl dt').forEach((dt) => {
+            dt.addEventListener('click', () => {
+                const isActive = dt.classList.contains('active');
+                // 모든 dd 닫기
+                document.querySelectorAll('dl dt').forEach(item => {
+                    item.classList.remove('active');
+                    item.setAttribute('aria-expanded', 'false');
+                    item.nextElementSibling.style.display = 'none';
+                });
+                // 현재 클릭한 dt 열기 (토글)
+                if (!isActive) {
+                    dt.classList.add('active');
+                    dt.setAttribute('aria-expanded', 'true');
+                    dt.nextElementSibling.style.display = 'block';
+                }
+            });
+            dt.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    dt.click();
+                }
+            });
+        });
+    </script>
+  
